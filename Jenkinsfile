@@ -6,12 +6,12 @@ Pipeline{
 	stages{
 		stage("Git Checkout"){
 			steps{
-				git credentialsId: 'github', url: 'https://github.com/agrawalram01/NodeApp.git' #script generated using jenkins pipeline syntax
+				git credentialsId: 'github', url: 'https://github.com/agrawalram01/NodeApp.git' 
 			}
 		}
 		stage("Code Build"){
 			steps{
-				sh "npm install" #use mvn clean package to build and generate war file
+				sh "npm install" 
 			}
 		}
 	}
