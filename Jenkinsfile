@@ -17,7 +17,7 @@ pipeline{
 		stage("Build docker image"){
 			steps{
 				script{
-					sh "docker build -f /home/ubuntu/test/NodeApp/Dockerfile -t agrawalram/nodeapp:${DOCKER_TAG} "
+					sh "sudo docker build -t agrawalram/nodeapp:${DOCKER_TAG} ."
 				}
 			}
 		}
