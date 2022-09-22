@@ -31,7 +31,9 @@ pipeline{
 		}
 		stage("Deploy to k8s"){
 			steps{
-				sh "cd /home/ubuntu/test/NodeApp/"
+				dir('/home/ubuntu/test/NodeApp/') {
+					sh "pwd"
+				}
 				sh "chmod +x changeTag.sh"
 				sh "./changeTag.sh S{DOCKER_TAG}"
 				sshagent(["k8s-machine"]){
