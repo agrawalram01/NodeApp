@@ -32,7 +32,7 @@ pipeline{
 		stage("Deploy to k8s"){
 			steps{
 				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
-				sh "chown -R jenkins:jenkins ."
+				//sh "chown -R jenkins:jenkins ."
 				sh "chmod +x /changeTag.sh"
 				sh "./changeTag.sh S{DOCKER_TAG}"
 				sshagent(["k8s-machine"]){
