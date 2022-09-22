@@ -21,6 +21,14 @@ pipeline{
 				}
 			}
 		}
+		stage("Push image to Docker Hub"){
+			steps{
+				withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]){
+					sh "docker login -u username -p ${dockerHubPwd}"
+					sh "docker push username/application-name:${DOCKER_TAG}"
+				}
+			}
+		}
 	}
 }
 
