@@ -31,7 +31,10 @@ pipeline{
 		}
 		stage("Deploy to k8s"){
 			steps{
-				sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
+				dir("H:\\home\\Videos\\videos") {
+					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: '*.yml' 'changeTag.sh', targetLocation: "${WORKSPACE}")])
+				}
+				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
 				sh "sudo chown -R jenkins:jenkins ."
 				sh "chmod +x changeTag.sh"
 				sh "./changeTag.sh S{DOCKER_TAG}"
