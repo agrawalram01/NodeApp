@@ -31,7 +31,7 @@ pipeline{
 		}
 		stage("Deploy to k8s"){
 			steps{
-				dir("H:\\home\\Videos\\videos") {
+				dir("/home/ubuntu/test/NodeApp") {
 					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: '*.yml' 'changeTag.sh', targetLocation: "${WORKSPACE}")])
 				}
 				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
