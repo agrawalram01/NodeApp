@@ -31,15 +31,12 @@ pipeline{
 		}
 		stage("Deploy to k8s"){
 			steps{
-				dir("/home/ubuntu/test/NodeApp") {
-					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: '*.yml', 'changeTag.sh', targetLocation: "${WORKSPACE}")])
-				}
 				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
-				sh "sudo chown -R jenkins:jenkins ."
-				sh "chmod +x changeTag.sh"
-				sh "./changeTag.sh S{DOCKER_TAG}"
+				//sh "sudo chown -R jenkins:jenkins ."
+				sh "chmod +x /home/ubuntu/test/NodeApp/changeTag.sh"
+				sh "./home/ubuntu/test/NodeApp/changeTag.sh S{DOCKER_TAG}"
 				sshagent(["k8s-machine"]){
-					sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@3.137.158.221:/home/ubuntu/"
+					sh "scp -o StrictHostKeyChecking=no /home/ubuntu/test/NodeApp/services.yml /home/ubuntu/test/NodeApp/node-app-pod.yml ubuntu@3.137.158.221:/home/ubuntu/"
 					script{
 						try{
 							sh "ssh ubuntu@3.137.158.221 kubectl apply -f ."
