@@ -31,7 +31,7 @@ pipeline{
 		}
 		stage("Deploy to k8s"){
 			steps{
-				sh "cp pods.yml services.yml changeTag.sh /var/lib/jenkins/workspace/test-automate-k8s/"
+				sh "cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
 				sh "chmod +x changeTag.sh"
 				sh "./changeTag.sh S{DOCKER_TAG}"
 				sshagent(["k8s-machine"]){
