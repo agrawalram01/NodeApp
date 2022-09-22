@@ -10,4 +10,4 @@ spec:
 		- name: nodeapp
 		  image: username/application-name:tagVersion 
 		  ports:
-			- containerPort: 8080 
+			- containerPort: 8000 
