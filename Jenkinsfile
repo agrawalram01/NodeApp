@@ -36,12 +36,12 @@ pipeline{
 				sh "chmod +x /home/ubuntu/test/NodeApp/changeTag.sh"
 				sh "./home/ubuntu/test/NodeApp/changeTag.sh S{DOCKER_TAG}"
 				sshagent(["k8s-machine"]){
-					sh "scp -o StrictHostKeyChecking=no /home/ubuntu/test/NodeApp/services.yml /home/ubuntu/test/NodeApp/node-app-pod.yml ubuntu@3.21.102.121:/home/ubuntu/"
+					sh "scp -o StrictHostKeyChecking=no /home/ubuntu/test/NodeApp/services.yml /home/ubuntu/test/NodeApp/node-app-pod.yml ubuntu@3.144.229.221:/home/ubuntu/"
 					script{
 						try{
-							sh "ssh ubuntu@3.21.102.121 kubectl apply -f ."
+							sh "ssh ubuntu@3.144.229.221 kubectl apply -f ."
 						}catch(error){
-							sh "ssh ubuntu@3.21.102.121 kubectl create -f ."
+							sh "ssh ubuntu@3.144.229.221 kubectl create -f ."
 						}
 					}
 				}
