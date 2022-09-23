@@ -43,10 +43,26 @@ pipeline{
 				//sh "chown -R jenkins:jenkins ."
 				//sh "chmod +x changeTag.sh"
 				//sh "sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml"
-				//dir("/home/ubuntu/test/NodeApp/") {
-				//	fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'pods.yml', targetLocation: "${WORKSPACE}")])
-				//	fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'services.yml', targetLocation: "${WORKSPACE}")])
-				//}
+				writeFile file: 'deployment.yml', text: '''apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: nodeapp
+	app: nodeapp
+spec:
+	selector:
+		matchLabels:
+		app: nodeapp
+	replicas: 2  
+	template:
+		metadata:
+			labels:
+				app: nodeapp
+	spec:
+	containers:
+		- name: nodeapp
+		  image: agrawalram/nodeapp:tagVersion
+		  ports:
+			- containerPort: 80'''
 				sh "chown -R jenkins:jenkins ."
 				sshagent(["k8s-machine"]){
 					sh "scp -o StrictHostKeyChecking=no services.yml pods.yml ubuntu@3.144.229.221:/home/ubuntu/"
