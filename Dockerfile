@@ -1,3 +1,2 @@
-FROM node:7-onbuild
-
-EXPOSE 8000
+FROM nginx/apline
+COPY /.* /usr/share/nginx/html/
