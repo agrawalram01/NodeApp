@@ -31,19 +31,7 @@ pipeline{
 		}
 		stage("Create required file to deploy"){
 			steps{
-				    writeFile file: 'services.yml', text: 'Working with files the Groovy way is easy.'
-				    sh 'ls -l services.yml'
-				    sh 'cat services.yml'
-			}
-		}
-		
-		stage("Deploy to k8s"){
-			steps{
-				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
-				//sh "chown -R jenkins:jenkins ."
-				//sh "chmod +x changeTag.sh"
-				//sh "sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml"
-				writeFile file: 'deployment.yml', text: '''apiVersion: apps/v1
+				    writeFile file: 'deployment.yml', text: '''apiVersion: apps/v1
 kind: Deployment
 metadata:
 	name: nodeapp
@@ -63,16 +51,26 @@ spec:
 		  image: agrawalram/nodeapp:tagVersion
 		  ports:
 			- containerPort: 80'''
+			}
+		}
+		
+		stage("Deploy to k8s"){
+			steps{
+				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
+				//sh "chown -R jenkins:jenkins ."
+				//sh "chmod +x changeTag.sh"
+				//sh "sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml"
+				
 				sh "chown -R jenkins:jenkins ."
 				sshagent(["k8s-machine"]){
-					sh "scp -o StrictHostKeyChecking=no services.yml pods.yml ubuntu@3.144.229.221:/home/ubuntu/"
-					script{
-						try{
-							sh "ssh ubuntu@3.144.229.221 kubectl apply -f ."
-						}catch(error){
-							sh "ssh ubuntu@3.144.229.221 kubectl create -f ."
-						}
-					}
+					sh "scp -o StrictHostKeyChecking=no services.yml deployment.yml ubuntu@3.144.229.221:/home/ubuntu/"
+					//script{
+					//	try{
+					//		sh "ssh ubuntu@3.144.229.221 kubectl apply -f ."
+					//	}catch(error){
+					//		sh "ssh ubuntu@3.144.229.221 kubectl create -f ."
+					//	}
+					//}
 				}
 			}
 		}
