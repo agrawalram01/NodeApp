@@ -29,16 +29,24 @@ pipeline{
 				}
 			}
 		}
+		stage("Create required file to deploy"){
+			steps{
+				    writeFile file: 'services.yml', text: 'Working with files the Groovy way is easy.'
+				    sh 'ls -l services.yml'
+				    sh 'cat services.yml'
+			}
+		}
+		
 		stage("Deploy to k8s"){
 			steps{
 				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
 				//sh "chown -R jenkins:jenkins ."
 				//sh "chmod +x changeTag.sh"
 				//sh "sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml"
-				dir("/home/ubuntu/test/NodeApp/") {
-					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'pods.yml', targetLocation: "${WORKSPACE}")])
-					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'services.yml', targetLocation: "${WORKSPACE}")])
-				}
+				//dir("/home/ubuntu/test/NodeApp/") {
+				//	fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'pods.yml', targetLocation: "${WORKSPACE}")])
+				//	fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'services.yml', targetLocation: "${WORKSPACE}")])
+				//}
 				sh "chown -R jenkins:jenkins ."
 				sshagent(["k8s-machine"]){
 					sh "scp -o StrictHostKeyChecking=no services.yml pods.yml ubuntu@3.144.229.221:/home/ubuntu/"
