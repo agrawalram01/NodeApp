@@ -1,12 +1,12 @@
 kind: Service 
 apiVersion: v1 
 metadata: 
-	name: nodeapp
+  name: nodeapp
 spec:
-	selector:
-		app: nodeapp
-	ports:
-		- protocol: "TCP"
-		  port: 80 
-		  targetPort: 8008
-		  type: NodePort
+  selector:
+    app: nodeapp
+  ports:
+    - protocol: "TCP"
+      port: 80 
+      targetPort: 8008
+      type: NodePort
