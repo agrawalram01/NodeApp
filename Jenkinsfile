@@ -31,26 +31,7 @@ pipeline{
 		}
 		stage("Create required file to deploy"){
 			steps{
-				    writeFile file: 'deployment.yml', text: '''apiVersion: apps/v1
-kind: Deployment
-metadata:
-	name: nodeapp
-	app: nodeapp
-spec:
-	selector:
-		matchLabels:
-		app: nodeapp
-	replicas: 2  
-	template:
-		metadata:
-			labels:
-				app: nodeapp
-	spec:
-	containers:
-		- name: nodeapp
-		  image: agrawalram/nodeapp:tagVersion
-		  ports:
-			- containerPort: 80'''
+				    
 			}
 		}
 		
