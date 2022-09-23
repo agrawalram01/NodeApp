@@ -34,7 +34,7 @@ pipeline{
 				//sh "sudo cp /home/ubuntu/test/NodeApp/pods.yml services.yml changeTag.sh ."
 				//sh "chown -R jenkins:jenkins ."
 				//sh "chmod +x changeTag.sh"
-				sh "./changeTag.sh S{DOCKER_TAG}"
+				sh "sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml"
 				sshagent(["k8s-machine"]){
 					sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@3.144.229.221:/home/ubuntu/"
 					script{
