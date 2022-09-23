@@ -31,7 +31,7 @@ pipeline{
 		}
 		stage("Create required file to deploy"){
 			steps{
-				    
+				sh "pwd"	    
 			}
 		}
 		
