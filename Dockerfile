@@ -1,2 +1,2 @@
-FROM nginx/apline
+FROM nginx
 COPY /.* /usr/share/nginx/html/
