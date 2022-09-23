@@ -6,7 +6,7 @@ pipeline{
 	stages{
 		stage("Git Checkout"){
 			steps{
-				git credentialsId: 'github', url: 'https://github.com/agrawalram01/NodeApp.git' 
+				git branch: 'main', credentialsId: 'git-hub', url: 'https://github.com/agrawalram01/NodeApp.git'
 			}
 		}
 		stage("Code Build"){
