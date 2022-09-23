@@ -36,7 +36,8 @@ pipeline{
 				//sh "chmod +x changeTag.sh"
 				//sh "sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml"
 				dir("/home/ubuntu/test/NodeApp/") {
-					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'pods.yml', 'services.yml', targetLocation: "${WORKSPACE}")])
+					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'pods.yml', targetLocation: "${WORKSPACE}")])
+					fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'services.yml', targetLocation: "${WORKSPACE}")])
 				}
 				sh "chown -R jenkins:jenkins ."
 				sshagent(["k8s-machine"]){
