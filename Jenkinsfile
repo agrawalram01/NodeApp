@@ -47,10 +47,10 @@ pipeline{
 					sh "scp -o StrictHostKeyChecking=no services.yml deployments.yml ubuntu@3.144.229.221:/home/ubuntu/"
 					script{
 						try{
-							sh "ssh ubuntu@3.144.229.221:/home/ubuntu/ kubectl get nodes"
+							sh "ssh ubuntu@3.144.229.221 kubectl get nodes"
 							sh "ssh ubuntu@3.144.229.221:/home/ubuntu/ kubectl apply -f deployments.yml"
 						}catch(error){
-							sh "ssh ubuntu@3.144.229.221:/home/ubuntu/ kubectl get nodes"
+							sh "ssh ubuntu@3.144.229.221 kubectl get nodes"
 							sh "ssh ubuntu@3.144.229.221:/home/ubuntu/ kubectl create -f deployments.yml"
 						}
 					}
