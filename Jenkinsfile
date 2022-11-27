@@ -43,7 +43,7 @@ pipeline{
 				//sh "sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml"
 				
 				//sh "chown -R jenkins:jenkins ."
-				sshagent(["k8s-machine"]){
+				sshagent(["k8s-master"]){
 					sh "scp -o StrictHostKeyChecking=no services.yml deployments.yml ubuntu@52.26.138.240:/home/ubuntu/"
 					script{
 						try{
