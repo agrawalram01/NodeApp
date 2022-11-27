@@ -44,14 +44,14 @@ pipeline{
 				
 				//sh "chown -R jenkins:jenkins ."
 				sshagent(["k8s-master"]){
-					sh "scp -o StrictHostKeyChecking=no services.yml deployments.yml ubuntu@52.26.138.240:/home/ubuntu/"
+					sh "scp -o StrictHostKeyChecking=no services.yml deployments.yml ubuntu@35.91.114.237:/home/ubuntu/"
 					script{
 						try{
-							sh "ssh ubuntu@52.26.138.240 kubectl apply -f deployments.yml"
-							sh "ssh ubuntu@52.26.138.240 kubectl get nodes"
+							sh "ssh ubuntu@35.91.114.237 kubectl apply -f deployments.yml"
+							sh "ssh ubuntu@35.91.114.237 kubectl get nodes"
 						}catch(error){
-							sh "ssh ubuntu@52.26.138.240 kubectl create -f deployments.yml"
-							sh "ssh ubuntu@52.26.138.240 kubectl get nodes -o wide --all-namespaces"
+							sh "ssh ubuntu@35.91.114.237 kubectl create -f deployments.yml"
+							sh "ssh ubuntu@35.91.114.237 kubectl get nodes -o wide --all-namespaces"
 						}
 					}
 				}
