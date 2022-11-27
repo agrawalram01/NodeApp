@@ -51,7 +51,7 @@ pipeline{
 							sh "ssh ubuntu@52.26.138.240 kubectl get nodes"
 						}catch(error){
 							sh "ssh ubuntu@52.26.138.240 kubectl create -f deployments.yml"
-							sh "ssh ubuntu@52.26.138.240 kubectl get nodes"
+							sh "ssh ubuntu@52.26.138.240 kubectl get nodes -o wide --all-namespaces"
 						}
 					}
 				}
