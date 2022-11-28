@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.14.2
+        image: /var/lib/jenkins/workspace/test-automate-k8s/agrawalram/nodeapp:${DOCKER_TAG}
         ports:
         - containerPort: 80
