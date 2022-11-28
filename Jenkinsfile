@@ -45,7 +45,7 @@ pipeline{
 				
 				//sh "chown -R jenkins:jenkins ."
 				sshagent(["k8s-master"]){
-					sh "scp -o StrictHostKeyChecking=no services.yml deployments.yml ubuntu@35.91.114.237:/home/ubuntu/"
+					sh "scp -o StrictHostKeyChecking=no agrawalram/nodeapp:${DOCKER_TAG} deployments.yml ubuntu@35.91.114.237:/home/ubuntu/"
 					script{
 						try{
 							sh "ssh ubuntu@35.91.114.237 kubectl apply -f deployments.yml"
