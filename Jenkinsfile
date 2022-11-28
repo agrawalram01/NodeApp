@@ -2,7 +2,6 @@ pipeline{
 	agent any
 	environment{
 		DOCKER_TAG = getDockerTag()
-		DOCKER_IMAGE = getDockerImage()
 	}
 	stages{
 		stage("Git Checkout"){
@@ -46,7 +45,7 @@ pipeline{
 				
 				//sh "chown -R jenkins:jenkins ."
 				sshagent(["k8s-master"]){
-					sh "scp -o StrictHostKeyChecking=no ${DOCKER_IMAGE} deployments.yml ubuntu@35.91.114.237:/home/ubuntu/"
+					sh "scp -o StrictHostKeyChecking=no agrawalram/nodeapp:${DOCKER_TAG} deployments.yml ubuntu@35.91.114.237:/home/ubuntu/"
 					script{
 						try{
 							sh "ssh ubuntu@35.91.114.237 kubectl apply -f deployments.yml"
@@ -67,8 +66,4 @@ pipeline{
 def getDockerTag(){
 	def tag = sh script: 'git rev-parse HEAD', returnStdout: true
 	return tag
-}
-def getDockerImage(){
-	df image= sh script: 'git rev-parse HEAD', returnStdout: true
-	return image
 }
