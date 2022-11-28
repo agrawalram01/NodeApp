@@ -26,6 +26,7 @@ pipeline{
 				withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]){
 					sh "docker login -u agrawalram -p ${dockerHubPwd}"
 					sh "docker push agrawalram/nodeapp:${DOCKER_TAG}"
+					sh "docker pull agrawalram/nodeapp:${DOCKER_TAG}"
 				}
 			}
 		}
