@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ./agrawalram/nodeapp:${DOCKER_TAG}
+        image: agrawalram/nodeapp:latest
         ports:
         - containerPort: 80
